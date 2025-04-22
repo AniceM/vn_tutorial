@@ -1,0 +1,24 @@
+[
+	{ "speaker": "Phoenix", "text": "Let's create a dialog with Player Choices."},
+	{ "speaker": "Trucy", "text": "That's a great idea! Give a choice to Apollo!"},
+	{ "speaker": "Phoenix", "text": "Roger that. Your turn, Apollo. Make a choice."},
+	{ "choices":
+		[
+			{ "text": "First choice.", "goto": "first_choice" },
+			{ "text": "Second choice.", "goto": "second_choice" }
+		]
+	},
+
+	{ "anchor": "first_choice" },
+	{ "speaker": "Phoenix", "text": "Ah, it appears you have chosen the first choice." },
+	{ "speaker": "Trucy", "text": "Interesting!"},
+	{ "goto": "end" },
+
+	{ "anchor": "second_choice" },
+	{ "speaker": "Trucy", "text": "You went with the second choice, huh!" },
+	{ "speaker": "Phoenix", "text": "Very good." },
+	{ "goto": "end" },
+	
+	{ "anchor": "end" },
+	{ "speaker": "Phoenix", "text": "I believe this is the end of our conversation." }
+]

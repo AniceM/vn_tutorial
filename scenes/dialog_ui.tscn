@@ -1,0 +1,117 @@
+[gd_scene load_steps=7 format=3 uid="uid://38xrgg0ehth7"]
+
+[ext_resource type="Theme" uid="uid://0ijqhbtj4ll8" path="res://resources/new_theme.tres" id="1_gtfko"]
+[ext_resource type="FontFile" uid="uid://d1m46lmb6axu7" path="res://assets/fonts/type_machine/Type Machine.ttf" id="2_flmeq"]
+[ext_resource type="Script" uid="uid://bge1hkkbxj7v1" path="res://scripts/dialog_ui.gd" id="2_mu3f8"]
+[ext_resource type="Script" uid="uid://mkjcd3vhbh6w" path="res://scripts/TextBlipSound.gd" id="3_2apai"]
+[ext_resource type="PackedScene" uid="uid://bwvbss0kbogfo" path="res://scenes/player_choice.tscn" id="4_8nsh5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_o81hv"]
+font = ExtResource("2_flmeq")
+font_size = 25
+
+[node name="DialogUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gtfko")
+script = ExtResource("2_mu3f8")
+
+[node name="SentencePauseTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.35
+one_shot = true
+
+[node name="TextBlipTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.09
+
+[node name="TextBlipSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_2apai")
+
+[node name="ChoicesContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ChoiceList" type="VBoxContainer" parent="ChoicesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Button" parent="ChoicesContainer/ChoiceList" instance=ExtResource("4_8nsh5")]
+visible = false
+layout_mode = 2
+
+[node name="DialogBox" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="DialogLine" type="RichTextLabel" parent="DialogBox"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "This is a line of [shake]dialog[/shake]."
+scroll_active = false
+
+[node name="SpeakerBox" type="Control" parent="."]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -200.265
+offset_right = 200.0
+offset_bottom = -150.265
+grow_vertical = 0
+
+[node name="Polygon2D" type="Polygon2D" parent="SpeakerBox"]
+position = Vector2(0, 0.265015)
+color = Color(0.137893, 0.371879, 0.999969, 0.588235)
+polygon = PackedVector2Array(0, 0, 180, 0, 200, 50, 0, 50)
+
+[node name="SpeakerName" type="Label" parent="SpeakerBox"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.5
+offset_top = -11.5
+offset_right = 23.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Name"
+label_settings = SubResource("LabelSettings_o81hv")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Polygon2D" type="Polygon2D" parent="Control"]
+position = Vector2(-22.03, -15.34)
+polygon = PackedVector2Array(0, 0, 40, 20, 0, 40)

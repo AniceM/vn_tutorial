@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://c54xoasq3ce5p"]
+
+[ext_resource type="Script" uid="uid://c5glwkx8w3oay" path="res://scripts/main_scene.gd" id="1_ch7nd"]
+[ext_resource type="AudioStream" uid="uid://yxfqtrncexou" path="res://assets/sounds/sfx-dink.wav" id="2_3qb0x"]
+[ext_resource type="Texture2D" uid="uid://dltijc8rdea0i" path="res://assets/images/background_image.png" id="2_ul06b"]
+[ext_resource type="PackedScene" uid="uid://cyfr4j6blwmvc" path="res://scenes/character.tscn" id="3_yitvb"]
+[ext_resource type="PackedScene" uid="uid://38xrgg0ehth7" path="res://scenes/dialog_ui.tscn" id="4_puevi"]
+
+[node name="MainScene" type="Node2D"]
+script = ExtResource("1_ch7nd")
+
+[node name="NextSentenceSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_3qb0x")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ul06b")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer2"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CharacterSprite" parent="CanvasLayer2/Control" instance=ExtResource("3_yitvb")]
+unique_name_in_owner = true
+position = Vector2(0, -287.585)
+scale = Vector2(0.767, 0.767)
+
+[node name="DialogUI" parent="CanvasLayer2" instance=ExtResource("4_puevi")]
+unique_name_in_owner = true
