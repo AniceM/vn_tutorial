@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c5glwkx8w3oay" path="res://scripts/main_scene.gd" id="1_ch7nd"]
 [ext_resource type="AudioStream" uid="uid://yxfqtrncexou" path="res://assets/sounds/sfx-dink.wav" id="2_3qb0x"]
-[ext_resource type="Texture2D" uid="uid://dltijc8rdea0i" path="res://assets/images/background_image.png" id="2_ul06b"]
+[ext_resource type="Texture2D" uid="uid://dltijc8rdea0i" path="res://assets/images/courtroom.png" id="2_ul06b"]
 [ext_resource type="PackedScene" uid="uid://cyfr4j6blwmvc" path="res://scenes/character.tscn" id="3_yitvb"]
 [ext_resource type="PackedScene" uid="uid://38xrgg0ehth7" path="res://scenes/dialog_ui.tscn" id="4_puevi"]
 

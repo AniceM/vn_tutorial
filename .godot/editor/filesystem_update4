@@ -1,8 +1,0 @@
-res://scenes/main_scene.tscn
-res://resources/new_theme.tres
-res://scenes/dialog_ui.tscn
-res://scenes/character.tscn
-res://resources/phoenix_sprites.tres
-res://resources/trucy_sprites.tres
-res://resources/story/second_scene.json
-res://scripts/main_scene.gd
