@@ -10,7 +10,7 @@ var dialog_lines : Array = []
 
 func _ready():
 	# load dialog
-	dialog_lines = load_dialog("res://resources/story/first_scene.json")
+	dialog_lines = load_dialog("res://resources/story/second_scene.json")
 	# connect signals
 	dialog_ui.text_animation_done.connect(_on_text_animation_done)
 	dialog_ui.choice_selected.connect(_on_choice_selected)
@@ -32,6 +32,12 @@ func _input(event):
 	
 func process_current_line():
 	var line = dialog_lines[dialog_index]
+	# Check if we need to change the scene
+	if line.has("location"):
+		dialog_index += 1
+		process_current_line()
+		return
+
 	# Check if this is a goto command
 	if line.has("goto"):
 		dialog_index = get_anchor_position(line["goto"])
@@ -43,15 +49,22 @@ func process_current_line():
 		dialog_index += 1
 		process_current_line()
 		return
+
+	# Update character sprite accordingly, default to speaker if show_character is not present
+	if line.has("show_character"):
+		var character_name = Character.get_enum_from_string(line["show_character"])
+		character_sprite.change_character(character_name, false, line.get("expression", ""))
+	elif line.has("speaker"):
+		var character_name = Character.get_enum_from_string(line["speaker"])
+		character_sprite.change_character(character_name, true, line.get("expression", ""))
 		
 	if line.has("choices"):
 		# Display choices
 		dialog_ui.display_choices(line["choices"])
-	else:
+	elif line.has("text"):
 		# Reading the line of dialog
-		var character_name = Character.get_enum_from_string(line["speaker"])
-		dialog_ui.change_line(character_name, line["text"])
-		character_sprite.change_character(character_name)
+		var speaker_name = Character.get_enum_from_string(line["speaker"])
+		dialog_ui.change_line(speaker_name, line["text"])
 	
 func get_anchor_position(anchor: String):
 	# Find the anchor entry with matching name
