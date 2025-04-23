@@ -1,5 +1,5 @@
 [
-	{ "location": "courtroom", "music": "trial_theme" },
+	{ "location": "office", "music": "office_theme" },
 	{ "speaker": "Phoenix", "text": "Today we'll be demonstrating some new visual novel features." },
 	{ "speaker": "Trucy", "text": "I'm excited to show off our expressions!", "expression": "happy" },
 	{ "speaker": "Phoenix", "text": "Let me show you how expressions work.", "expression": "confident" },
@@ -36,5 +36,5 @@
 	{ "speaker": "Phoenix", "text": "I think that covers all the new features." },
 	{ "speaker": "Trucy", "text": "Don't forget about the next scene command!", "expression": "happy" },
 	{ "speaker": "Apollo", "text": "Right! Let's wrap this up.", "show_character": "Phoenix", "expression": "confident" },
-	{ "next_scene": "office_scene_day2.json" }
+	{ "next_scene": "", "transition": "fade" }
 ]

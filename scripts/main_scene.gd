@@ -1,19 +1,23 @@
 extends Node2D
 
+@onready var background = %Background
 @onready var character_sprite = %CharacterSprite
 @onready var dialog_ui = %DialogUI
 @onready var next_sentence_sound = %NextSentenceSound
 
-var dialog_index : int = 0
-
-var dialog_lines : Array = []
+var transition_effect: String = "fade"
+var dialog_file: String = "res://resources/story/first_scene.json"
+var dialog_index: int = 0
+var dialog_lines: Array = []
 
 func _ready():
 	# load dialog
-	dialog_lines = load_dialog("res://resources/story/second_scene.json")
+	dialog_lines = load_dialog(dialog_file)
 	# connect signals
 	dialog_ui.text_animation_done.connect(_on_text_animation_done)
 	dialog_ui.choice_selected.connect(_on_choice_selected)
+	SceneManager.transition_out_completed.connect(_on_transition_out_completed)
+	SceneManager.transition_in_completed.connect(_on_transition_in_completed)
 	# Process first line of dialog.
 	dialog_index = 0
 	process_current_line()
@@ -32,20 +36,36 @@ func _input(event):
 	
 func process_current_line():
 	var line = dialog_lines[dialog_index]
+
+	# Check if this is the end of our scene
+	if line.has("next_scene"):
+		# Update data
+		var next_scene = line["next_scene"]
+		dialog_file = "res://resources/story/" + next_scene + ".json" if !next_scene.is_empty() else ""
+		transition_effect = line.get("transition", "fade")
+		# Transition out
+		SceneManager.transition_out(transition_effect)
+
 	# Check if we need to change the scene
 	if line.has("location"):
+		# Change the background
+		var background_file = "res://assets/images/" + line["location"] + ".png"
+		background.texture = load(background_file)
+		# Proceed to the next line without waiting for user input
 		dialog_index += 1
 		process_current_line()
 		return
 
 	# Check if this is a goto command
 	if line.has("goto"):
+		# Update dialog_index and immediately process the new line
 		dialog_index = get_anchor_position(line["goto"])
 		process_current_line()
 		return
 		
 	# Check if this is just an acnhor declaration (not displayable content)
 	if line.has("anchor"):
+		# Proceed to the next line without waiting for user input
 		dialog_index += 1
 		process_current_line()
 		return
@@ -109,3 +129,23 @@ func _on_choice_selected(anchor: String):
 	dialog_index = get_anchor_position(anchor)
 	process_current_line()
 	next_sentence_sound.play()
+
+func _on_transition_out_completed():
+	# Load new dialog (if it exists)
+	if !dialog_file.is_empty():
+		dialog_lines = load_dialog(dialog_file)
+		dialog_index = 0
+		var first_line = dialog_lines[dialog_index]
+		# Process first line ahead if it has location info
+		if first_line.has("location"):
+			background.texture = load("res://assets/images/" + first_line["location"] + ".png")
+			# -> You can add all the pre-processing code needed here, such as the music <-
+			dialog_index += 1
+		# Now that we are done preparing the next scene, call SceneManager again
+		SceneManager.transition_in(transition_effect)
+	else:
+		# Presumably the end of the game; you can do what you want here.
+		print("End")
+
+func _on_transition_in_completed():
+	process_current_line()

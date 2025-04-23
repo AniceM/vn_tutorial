@@ -1,4 +1,5 @@
 [
+	{ "location": "courtroom", "music": "courtroom_theme" },
 	{ "speaker": "Phoenix", "text": "Let's create a dialog with Player Choices."},
 	{ "speaker": "Trucy", "text": "That's a great idea! Give a choice to Apollo!"},
 	{ "speaker": "Phoenix", "text": "Roger that. Your turn, Apollo. Make a choice."},
@@ -20,5 +21,6 @@
 	{ "goto": "end" },
 	
 	{ "anchor": "end" },
-	{ "speaker": "Phoenix", "text": "I believe this is the end of our conversation." }
+	{ "speaker": "Phoenix", "text": "I believe this is the end of our conversation." },
+	{ "next_scene": "second_scene", "transition": "slide" }
 ]
