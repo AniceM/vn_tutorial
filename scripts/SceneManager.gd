@@ -98,22 +98,3 @@ func _slide_in():
 func change_scene(path: String):
 	# Simplest way to change scene
 	get_tree().change_scene_to_file(path)
-
-# func change_scene_with_fade(path: String):
-#	 transition_rect.visible = true
-#	 transition_rect.modulate.a = 0
-#	 transition_rect.z_index = 999
-
-#	 var tween = create_tween()
-#	 tween.tween_property(transition_rect, "modulate:a", 1.0, transition_time).as_sequence()
-#	 tween.tween_callback(Callable(self, "_change_and_fade_in").bind(path))
-
-# func _change_and_fade_in(path: String):
-#	 get_tree().change_scene_to_file(path)
-#	 var tween = create_tween()
-#	 fade_rect.visible = true
-#	 tween.tween_property(fade_rect, "modulate:a", 0.0, fade_time)
-#	 tween.tween_callback(Callable(self, "_hide_fade"))
-
-# func _hide_fade():
-#	 fade_rect.visible = false

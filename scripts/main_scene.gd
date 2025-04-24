@@ -18,9 +18,10 @@ func _ready():
 	dialog_ui.choice_selected.connect(_on_choice_selected)
 	SceneManager.transition_out_completed.connect(_on_transition_out_completed)
 	SceneManager.transition_in_completed.connect(_on_transition_in_completed)
-	# Process first line of dialog.
+	# Reset some values
 	dialog_index = 0
-	process_current_line()
+	# Start the scene
+	SceneManager.transition_in()
 	
 func _input(event):
 	var line = dialog_lines[dialog_index]
@@ -148,4 +149,5 @@ func _on_transition_out_completed():
 		print("End")
 
 func _on_transition_in_completed():
+	# Start processing dialog
 	process_current_line()
