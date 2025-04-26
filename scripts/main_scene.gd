@@ -35,7 +35,13 @@ func _input(event):
 				next_sentence_sound.play()
 				process_current_line()
 	
-func process_current_line():
+func process_current_line():	
+	# Check if dialog_index is out of bounds
+	if dialog_index >= dialog_lines.size() or dialog_index < 0:
+		printerr("Error: dialog_index out of bounds: ", dialog_index)
+		return
+
+	# Extract current line
 	var line = dialog_lines[dialog_index]
 
 	# Check if this is the end of our scene
