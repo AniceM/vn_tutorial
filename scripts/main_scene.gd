@@ -35,7 +35,13 @@ func _input(event):
 				next_sentence_sound.play()
 				process_current_line()
 	
-func process_current_line():
+func process_current_line():	
+	# Check if dialog_index is out of bounds
+	if dialog_index >= dialog_lines.size() or dialog_index < 0:
+		printerr("Error: dialog_index out of bounds: ", dialog_index)
+		return
+
+	# Extract current line
 	var line = dialog_lines[dialog_index]
 
 	# Check if this is the end of our scene
@@ -46,6 +52,7 @@ func process_current_line():
 		transition_effect = line.get("transition", "fade")
 		# Transition out
 		SceneManager.transition_out(transition_effect)
+		return
 
 	# Check if we need to change the scene
 	if line.has("location"):
@@ -86,6 +93,12 @@ func process_current_line():
 		# Reading the line of dialog
 		var speaker_name = Character.get_enum_from_string(line["speaker"])
 		dialog_ui.change_line(speaker_name, line["text"])
+	else:
+		# No choice or line of dialog here
+		# Which means we don't need to wait for user input
+		dialog_index += 1
+		process_current_line()
+		return
 	
 func get_anchor_position(anchor: String):
 	# Find the anchor entry with matching name
