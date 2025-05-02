@@ -4,6 +4,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.modulate.a = 0
 	pass # Replace with function body.
 	
 func change_character(character_name: Character.Name, is_talking: bool, expression: String):
@@ -23,6 +24,10 @@ func change_character(character_name: Character.Name, is_talking: bool, expressi
 	else:
 		# Switch to the idle animation of the character currently displayed
 		play_idle_animation()
+
+	# If the sprite was hidden, fade it in
+	if self.modulate.a == 0:
+		create_tween().tween_property(self, "modulate:a", 1.0, 0.3)
 
 func play_idle_animation():
 	var last_animation = animated_sprite.animation

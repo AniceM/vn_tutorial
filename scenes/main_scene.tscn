@@ -16,7 +16,8 @@ stream = ExtResource("2_3qb0x")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+[node name="Background" type="TextureRect" parent="CanvasLayer"]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -35,11 +36,14 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
+metadata/_edit_lock_ = true
 
 [node name="CharacterSprite" parent="CanvasLayer2/Control" instance=ExtResource("3_yitvb")]
 unique_name_in_owner = true
 position = Vector2(0, -287.585)
 scale = Vector2(0.767, 0.767)
+metadata/_edit_lock_ = true
 
 [node name="DialogUI" parent="CanvasLayer2" instance=ExtResource("4_puevi")]
 unique_name_in_owner = true
+metadata/_edit_lock_ = true
